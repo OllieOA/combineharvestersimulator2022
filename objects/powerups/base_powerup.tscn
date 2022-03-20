@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://objects/powerups/base_powerup.gd" type="Script" id=1]
 [ext_resource path="res://objects/powerups/powerup_properties.tres" type="Resource" id=2]
 [ext_resource path="res://objects/powerups/powerup_base.png" type="Texture" id=3]
 [ext_resource path="res://objects/powerups/powerup_icons.png" type="Texture" id=4]
+[ext_resource path="res://sound/powerUp.ogg" type="AudioStream" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 50, 34 )
@@ -31,9 +32,11 @@ powerup_properties = ExtResource( 2 )
 border = NodePath("RelativePosition/Border")
 icon = NodePath("RelativePosition/Border/Icon")
 bounce = NodePath("AnimationPlayer")
+activation_area = NodePath("RelativePosition/AbsorbArea")
+absorb_sound = NodePath("AbsorbSound")
 
 [node name="RelativePosition" type="Node2D" parent="."]
-position = Vector2( 0, -4.72734 )
+position = Vector2( 0, -8.05541 )
 
 [node name="Border" type="Sprite" parent="RelativePosition"]
 texture = ExtResource( 3 )
@@ -51,5 +54,8 @@ shape = SubResource( 1 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../RelativePosition")
 anims/pulse = SubResource( 2 )
+
+[node name="AbsorbSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
 
 [connection signal="body_entered" from="RelativePosition/AbsorbArea" to="." method="_on_AbsorbArea_body_entered"]

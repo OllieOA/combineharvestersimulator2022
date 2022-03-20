@@ -27,26 +27,46 @@ var max_pitch_change := 1.5
 var total_pitch_change := 1.0
 var new_pitch := 1.0
 
+var spawned_and_launched := false
+var launch_speed = 300.0
+var launch_vector
+
+
 # DEBUG:
 var debug_point_list := []
 
 
 func _ready() -> void:
 	points_to_check = _generate_line(r_pos.position, l_pos.position, pixel_density)
-	_debug_draw_points()
+#	_debug_draw_points()
 	harvest_animator.play("harvest")
-	engine_noise.play()
+	if self.is_in_group("player_harvester"):
+		engine_noise.play()
 
 
+func spawn_and_launch(launch_dir):
+	spawned_and_launched = true
+	add_to_group("player_harvester")
+	launch_vector = launch_dir
+	
+	var kill_timer = Timer.new()
+	add_child(kill_timer)
+	kill_timer.one_shot = true
+	kill_timer.wait_time = 1.0
+	kill_timer.connect("timeout", self, "queue_free")
+	kill_timer.start()
+	
+	
 func _process(delta: float) -> void:
-	# DEBUG
-	for i_point in range(len(points_to_check)):
-		debug_point_list[i_point].global_position = global_position + points_to_check[i_point].rotated(global_rotation)
-	# Get the length of the linear velocity and translate to playback speed
-	curr_velocity = clamp(get_parent().linear_velocity.length(), 0, max_linear_velocity)
-	harvest_animator.playback_speed = 1 + (curr_velocity / max_linear_velocity * max_animation_speed)
-	new_pitch = 1 + (curr_velocity / max_linear_velocity * max_pitch_change)
-	engine_noise.pitch_scale = lerp(engine_noise.pitch_scale, new_pitch, 0.1)
+	if spawned_and_launched:
+		global_position += delta * launch_speed * launch_vector
+	
+	else:
+		curr_velocity = clamp(get_parent().linear_velocity.length(), 0, max_linear_velocity)
+		harvest_animator.playback_speed = 1 + (curr_velocity / max_linear_velocity * max_animation_speed)
+		new_pitch = 1 + (curr_velocity / max_linear_velocity * max_pitch_change)
+		engine_noise.pitch_scale = lerp(engine_noise.pitch_scale, new_pitch, 0.1)
+	
 
 
 func _physics_process(delta: float) -> void:
@@ -70,21 +90,20 @@ func _generate_line(point1: Vector2, point2: Vector2, spacing) -> Array:
 	# Get another row of points
 	var new_point_row = []
 	for point in points_to_check:
-		new_point_row.append(Vector2(point.x - 16, point.y))
+		new_point_row.append(Vector2(point.x - 16, point.y - 4))
 		new_point_row.append(Vector2(point.x - 32, point.y))
 
 	points_to_check += new_point_row
 	return points_to_check
 	
 
-func change_size(new_size_factor, turns):
+func change_size(new_size_factor, turns, powerup_type, called_object_group):
 	scale = Vector2(1, new_size_factor)
 	points_to_check = _generate_line(r_pos.position * new_size_factor, l_pos.position * new_size_factor, pixel_density * new_size_factor)
-	_debug_draw_points()
-
-
-func _reset_size():
-	change_size(1, -1)
+	if turns != -1:
+		# Register the ability
+		SignalBus.emit_signal("add_ui_turn_countdown", powerup_type, turns, "reset_size", called_object_group)
+#	_debug_draw_points()
 
 
 func _debug_draw_points():

@@ -1,0 +1,285 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://assets/background_grass_tileset.tres" type="TileSet" id=1]
+[ext_resource path="res://ui/title_text.png" type="Texture" id=2]
+[ext_resource path="res://ui/level_button_pressed.png" type="Texture" id=3]
+[ext_resource path="res://ui/level_button_base.png" type="Texture" id=4]
+[ext_resource path="res://ui/level_button_hover.png" type="Texture" id=5]
+[ext_resource path="res://assets/themes/main_menu_buttons.tres" type="Theme" id=6]
+[ext_resource path="res://scenes/title_screen.gd" type="Script" id=7]
+[ext_resource path="res://assets/crop_tilemap.tres" type="TileSet" id=8]
+[ext_resource path="res://objects/crop/base_wheat.tscn" type="PackedScene" id=9]
+[ext_resource path="res://ui/settings.tscn" type="PackedScene" id=10]
+[ext_resource path="res://ui/level_button_disabled.png" type="Texture" id=11]
+
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://assets/font/countrygold/country_gold.ttf"
+
+[sub_resource type="DynamicFont" id=2]
+size = 21
+outline_size = 2
+outline_color = Color( 0, 0, 0, 1 )
+font_data = SubResource( 1 )
+
+[sub_resource type="Theme" id=3]
+default_font = SubResource( 2 )
+
+[node name="TitleScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+crop_tilemap = NodePath("CropTilemap")
+wheat_layer = NodePath("WheatLayer")
+wheat_scene = ExtResource( 9 )
+level1_button = NodePath("ButtonContainer/VBoxContainer/HBoxContainer/LevelButton1")
+level2_button = NodePath("ButtonContainer/VBoxContainer/HBoxContainer/LevelButton2")
+level3_button = NodePath("ButtonContainer/VBoxContainer/HBoxContainer/LevelButton3")
+level4_button = NodePath("ButtonContainer/VBoxContainer/HBoxContainer2/LevelButton4")
+level5_button = NodePath("ButtonContainer/VBoxContainer/HBoxContainer2/LevelButton5")
+level6_button = NodePath("ButtonContainer/VBoxContainer/HBoxContainer2/LevelButton6")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 256, 256 )
+format = 1
+tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 65536, 0, 0, 65537, 0, 65537, 65538, 0, 1, 65539, 0, 0, 65540, 0, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 131075, 0, 0, 131076, 0, 0 )
+
+[node name="CropTilemap" type="TileMap" parent="."]
+tile_set = ExtResource( 8 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( 196661, 0, 0, 196662, 0, 2, 196663, 0, 2, 196664, 0, 2, 196665, 0, 1, 196666, 0, 1, 196667, 0, 3, 196675, 0, 0, 196676, 0, 2, 196677, 0, 1, 196678, 0, 1, 196679, 0, 2, 196680, 0, 2, 196681, 0, 3, 262196, 0, 0, 262197, 0, 4, 262198, 0, 65538, 262199, 0, 131074, 262200, 0, 131073, 262201, 0, 131073, 262202, 0, 65537, 262203, 0, 65539, 262211, 0, 65536, 262212, 0, 131074, 262213, 0, 65538, 262214, 0, 65537, 262215, 0, 131073, 262216, 0, 65537, 262217, 0, 5, 262218, 0, 3, 327732, 0, 65536, 327733, 0, 65538, 327734, 0, 65537, 327735, 0, 65537, 327736, 0, 65537, 327737, 0, 131074, 327738, 0, 131073, 327739, 0, 65539, 327747, 0, 131072, 327748, 0, 131074, 327749, 0, 131074, 327750, 0, 131073, 327751, 0, 65537, 327752, 0, 65537, 327753, 0, 131073, 327754, 0, 131075, 393268, 0, 131072, 393269, 0, 131074, 393270, 0, 131074, 393271, 0, 131074, 393272, 0, 131073, 393273, 0, 65537, 393274, 0, 131073, 393275, 0, 131075, 393283, 0, 65536, 393284, 0, 131073, 393285, 0, 65538, 393286, 0, 131074, 393287, 0, 65538, 393288, 0, 65537, 393289, 0, 65538, 393290, 0, 131075, 458804, 0, 65536, 458805, 0, 65538, 458806, 0, 65537, 458807, 0, 131074, 458808, 0, 131073, 458809, 0, 65537, 458810, 0, 65537, 458811, 0, 131075, 458819, 0, 65536, 458820, 0, 131073, 458821, 0, 131073, 458822, 0, 131074, 458823, 0, 131073, 458824, 0, 131074, 458825, 0, 131073, 458826, 0, 65539, 524340, 0, 65536, 524341, 0, 65537, 524342, 0, 65538, 524343, 0, 131073, 524344, 0, 65538, 524345, 0, 131073, 524346, 0, 65541, 524347, 0, 196611, 524355, 0, 196608, 524356, 0, 196612, 524357, 0, 65538, 524358, 0, 131073, 524359, 0, 65537, 524360, 0, 65537, 524361, 0, 131074, 524362, 0, 131075, 589876, 0, 65536, 589877, 0, 65538, 589878, 0, 131073, 589879, 0, 65538, 589880, 0, 65538, 589881, 0, 65541, 589882, 0, 196611, 589892, 0, 196608, 589893, 0, 65540, 589894, 0, 131073, 589895, 0, 131073, 589896, 0, 65537, 589897, 0, 65538, 589898, 0, 131075, 655412, 0, 196608, 655413, 0, 196609, 655414, 0, 196609, 655415, 0, 196610, 655416, 0, 196609, 655417, 0, 196611, 655422, 0, 0, 655423, 0, 1, 655424, 0, 2, 655425, 0, 3, 655429, 0, 196608, 655430, 0, 196610, 655431, 0, 196609, 655432, 0, 196610, 655433, 0, 196609, 655434, 0, 196611, 720957, 0, 0, 720958, 0, 4, 720959, 0, 131074, 720960, 0, 65538, 720961, 0, 65539, 786491, 0, 0, 786492, 0, 2, 786493, 0, 4, 786494, 0, 131073, 786495, 0, 131073, 786496, 0, 65538, 786497, 0, 65539, 852027, 0, 131072, 852028, 0, 131073, 852029, 0, 65537, 852030, 0, 131074, 852031, 0, 131073, 852032, 0, 65537, 852033, 0, 131075, 917554, 0, 0, 917555, 0, 1, 917556, 0, 1, 917557, 0, 2, 917558, 0, 2, 917559, 0, 3, 917563, 0, 196608, 917564, 0, 196609, 917565, 0, 196609, 917566, 0, 196609, 917567, 0, 196609, 917568, 0, 196610, 917569, 0, 196611, 917575, 0, 0, 917576, 0, 2, 917577, 0, 1, 917578, 0, 2, 917579, 0, 1, 917580, 0, 3, 983090, 0, 65536, 983091, 0, 65538, 983092, 0, 131074, 983093, 0, 65537, 983094, 0, 131073, 983095, 0, 131075, 983111, 0, 131072, 983112, 0, 65538, 983113, 0, 65538, 983114, 0, 131073, 983115, 0, 131074, 983116, 0, 65539, 1048626, 0, 65536, 1048627, 0, 65538, 1048628, 0, 65537, 1048629, 0, 65537, 1048630, 0, 65537, 1048631, 0, 131077, 1048632, 0, 3, 1048646, 0, 0, 1048647, 0, 131076, 1048648, 0, 65538, 1048649, 0, 65537, 1048650, 0, 65537, 1048651, 0, 65537, 1048652, 0, 65539, 1114162, 0, 196608, 1114163, 0, 196612, 1114164, 0, 65537, 1114165, 0, 65537, 1114166, 0, 65538, 1114167, 0, 131074, 1114168, 0, 5, 1114169, 0, 3, 1114181, 0, 0, 1114182, 0, 4, 1114183, 0, 65538, 1114184, 0, 131074, 1114185, 0, 131074, 1114186, 0, 65537, 1114187, 0, 196613, 1114188, 0, 196611, 1179699, 0, 131072, 1179700, 0, 65537, 1179701, 0, 131073, 1179702, 0, 131074, 1179703, 0, 65538, 1179704, 0, 65537, 1179705, 0, 5, 1179706, 0, 1, 1179707, 0, 2, 1179708, 0, 1, 1179709, 0, 1, 1179710, 0, 1, 1179711, 0, 1, 1179712, 0, 1, 1179713, 0, 1, 1179714, 0, 1, 1179715, 0, 2, 1179716, 0, 2, 1179717, 0, 4, 1179718, 0, 65538, 1179719, 0, 65537, 1179720, 0, 65537, 1179721, 0, 131074, 1179722, 0, 65537, 1179723, 0, 131075, 1245235, 0, 196608, 1245236, 0, 65540, 1245237, 0, 131074, 1245238, 0, 65538, 1245239, 0, 65538, 1245240, 0, 65538, 1245241, 0, 131074, 1245242, 0, 65538, 1245243, 0, 65537, 1245244, 0, 131074, 1245245, 0, 131073, 1245246, 0, 65537, 1245247, 0, 65538, 1245248, 0, 131073, 1245249, 0, 131074, 1245250, 0, 65537, 1245251, 0, 131074, 1245252, 0, 131074, 1245253, 0, 131074, 1245254, 0, 65538, 1245255, 0, 65537, 1245256, 0, 131074, 1245257, 0, 131074, 1245258, 0, 65541, 1245259, 0, 196611, 1310772, 0, 65536, 1310773, 0, 131074, 1310774, 0, 131073, 1310775, 0, 131074, 1310776, 0, 65538, 1310777, 0, 65537, 1310778, 0, 131073, 1310779, 0, 131073, 1310780, 0, 131073, 1310781, 0, 131074, 1310782, 0, 131074, 1310783, 0, 131074, 1310784, 0, 65538, 1310785, 0, 65538, 1310786, 0, 65537, 1310787, 0, 65537, 1310788, 0, 131074, 1310789, 0, 131074, 1310790, 0, 65538, 1310791, 0, 65538, 1310792, 0, 131073, 1310793, 0, 131073, 1310794, 0, 65539, 1376308, 0, 196608, 1376309, 0, 196609, 1376310, 0, 196610, 1376311, 0, 196612, 1376312, 0, 65537, 1376313, 0, 131074, 1376314, 0, 131073, 1376315, 0, 131074, 1376316, 0, 65537, 1376317, 0, 65538, 1376318, 0, 65537, 1376319, 0, 65537, 1376320, 0, 65537, 1376321, 0, 65537, 1376322, 0, 131074, 1376323, 0, 131074, 1376324, 0, 131073, 1376325, 0, 131074, 1376326, 0, 65537, 1376327, 0, 196613, 1376328, 0, 196610, 1376329, 0, 196609, 1376330, 0, 196611, 1441847, 0, 196608, 1441848, 0, 196609, 1441849, 0, 196610, 1441850, 0, 196610, 1441851, 0, 196609, 1441852, 0, 196610, 1441853, 0, 196609, 1441854, 0, 196609, 1441855, 0, 196609, 1441856, 0, 196609, 1441857, 0, 196610, 1441858, 0, 196610, 1441859, 0, 196609, 1441860, 0, 196609, 1441861, 0, 196610, 1441862, 0, 196610, 1441863, 0, 196611 )
+
+[node name="WheatLayer" type="YSort" parent="."]
+
+[node name="LogoContainer" type="MarginContainer" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+custom_constants/margin_right = 30
+custom_constants/margin_top = 30
+custom_constants/margin_left = 30
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Logo" type="TextureRect" parent="LogoContainer"]
+margin_left = 30.0
+margin_top = 30.0
+margin_right = 772.0
+margin_bottom = 226.0
+texture = ExtResource( 2 )
+
+[node name="ButtonContainer" type="MarginContainer" parent="."]
+margin_right = 180.0
+margin_bottom = 364.0
+theme = ExtResource( 6 )
+custom_constants/margin_top = 300
+custom_constants/margin_left = 120
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ButtonContainer"]
+margin_left = 120.0
+margin_top = 300.0
+margin_right = 720.0
+margin_bottom = 690.0
+custom_constants/separation = 30
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ButtonContainer/VBoxContainer"]
+margin_right = 600.0
+margin_bottom = 180.0
+custom_constants/separation = 30
+
+[node name="LevelButton1" type="TextureButton" parent="ButtonContainer/VBoxContainer/HBoxContainer"]
+pause_mode = 1
+margin_right = 180.0
+margin_bottom = 180.0
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 3 )
+texture_hover = ExtResource( 5 )
+texture_disabled = ExtResource( 11 )
+
+[node name="Label" type="Label" parent="ButtonContainer/VBoxContainer/HBoxContainer/LevelButton1"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Level 1
+Tutorial"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LevelButton2" type="TextureButton" parent="ButtonContainer/VBoxContainer/HBoxContainer"]
+pause_mode = 1
+margin_left = 210.0
+margin_right = 390.0
+margin_bottom = 180.0
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 3 )
+texture_hover = ExtResource( 5 )
+texture_disabled = ExtResource( 11 )
+
+[node name="Label" type="Label" parent="ButtonContainer/VBoxContainer/HBoxContainer/LevelButton2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Level 2
+Easy"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LevelButton3" type="TextureButton" parent="ButtonContainer/VBoxContainer/HBoxContainer"]
+pause_mode = 1
+margin_left = 420.0
+margin_right = 600.0
+margin_bottom = 180.0
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 3 )
+texture_hover = ExtResource( 5 )
+texture_disabled = ExtResource( 11 )
+
+[node name="Label" type="Label" parent="ButtonContainer/VBoxContainer/HBoxContainer/LevelButton3"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Level 3
+Medium"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ButtonContainer/VBoxContainer"]
+margin_top = 210.0
+margin_right = 600.0
+margin_bottom = 390.0
+custom_constants/separation = 30
+
+[node name="LevelButton4" type="TextureButton" parent="ButtonContainer/VBoxContainer/HBoxContainer2"]
+pause_mode = 1
+margin_right = 180.0
+margin_bottom = 180.0
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 3 )
+texture_hover = ExtResource( 5 )
+texture_disabled = ExtResource( 11 )
+
+[node name="Label" type="Label" parent="ButtonContainer/VBoxContainer/HBoxContainer2/LevelButton4"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Level 4
+Medium"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LevelButton5" type="TextureButton" parent="ButtonContainer/VBoxContainer/HBoxContainer2"]
+pause_mode = 1
+margin_left = 210.0
+margin_right = 390.0
+margin_bottom = 180.0
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 3 )
+texture_hover = ExtResource( 5 )
+texture_disabled = ExtResource( 11 )
+
+[node name="Label" type="Label" parent="ButtonContainer/VBoxContainer/HBoxContainer2/LevelButton5"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Level 5
+Hard"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LevelButton6" type="TextureButton" parent="ButtonContainer/VBoxContainer/HBoxContainer2"]
+pause_mode = 1
+margin_left = 420.0
+margin_right = 600.0
+margin_bottom = 180.0
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 3 )
+texture_hover = ExtResource( 5 )
+texture_disabled = ExtResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="ButtonContainer/VBoxContainer/HBoxContainer2/LevelButton6"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Level 6
+Hard"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SettingsInfo" parent="." instance=ExtResource( 10 )]
+
+[node name="Flavourtext" type="MarginContainer" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -398.0
+margin_top = -129.0
+rect_rotation = -30.0
+theme = SubResource( 3 )
+custom_constants/margin_right = 20
+custom_constants/margin_top = -20
+custom_constants/margin_left = -20
+custom_constants/margin_bottom = -20
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Flavourtext"]
+margin_left = -20.0
+margin_top = -20.0
+margin_right = 378.0
+margin_bottom = 149.0
+
+[node name="GWJLabel" type="Label" parent="Flavourtext/VBoxContainer"]
+margin_right = 398.0
+margin_bottom = 49.0
+text = "Made for the Godot Wild Jam #43
+Theme - Combine!"
+align = 1
+
+[node name="Credit" type="Label" parent="Flavourtext/VBoxContainer"]
+margin_top = 53.0
+margin_right = 398.0
+margin_bottom = 128.0
+text = "
+Everything but music by OllieOA
+"
+align = 1
+valign = 1
+
+[node name="Credit2" type="Label" parent="Flavourtext/VBoxContainer"]
+margin_top = 132.0
+margin_right = 398.0
+margin_bottom = 155.0
+text = "Music is Moonshine Town by JR Tundra"
+align = 1
+valign = 1
+
+[connection signal="pressed" from="ButtonContainer/VBoxContainer/HBoxContainer/LevelButton1" to="." method="_on_LevelButton1_pressed"]
+[connection signal="pressed" from="ButtonContainer/VBoxContainer/HBoxContainer/LevelButton2" to="." method="_on_LevelButton2_pressed"]
+[connection signal="pressed" from="ButtonContainer/VBoxContainer/HBoxContainer/LevelButton3" to="." method="_on_LevelButton3_pressed"]
+[connection signal="pressed" from="ButtonContainer/VBoxContainer/HBoxContainer2/LevelButton4" to="." method="_on_LevelButton4_pressed"]
+[connection signal="pressed" from="ButtonContainer/VBoxContainer/HBoxContainer2/LevelButton5" to="." method="_on_LevelButton5_pressed"]
+[connection signal="pressed" from="ButtonContainer/VBoxContainer/HBoxContainer2/LevelButton6" to="." method="_on_LevelButton6_pressed"]

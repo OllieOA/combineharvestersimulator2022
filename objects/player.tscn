@@ -13,7 +13,7 @@ extents = Vector2( 22.0001, 35.4999 )
 max_value = 4.0
 _data = [ Vector2( 0, 4 ), 0.0, 0.0, 0, 0, Vector2( 0.771739, 4 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=4]
+[sub_resource type="CurveTexture" id=7]
 curve = SubResource( 3 )
 
 [sub_resource type="ParticlesMaterial" id=2]
@@ -29,7 +29,7 @@ orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 linear_accel = -60.0
 scale = 2.0
-scale_curve = SubResource( 4 )
+scale_curve = SubResource( 7 )
 color = Color( 0.921569, 0.560784, 0.282353, 1 )
 
 [sub_resource type="ParticlesMaterial" id=5]
@@ -50,6 +50,7 @@ continuous_cd = 2
 contacts_reported = 1
 contact_monitor = true
 linear_damp = 1.0
+angular_damp = 1.0
 script = ExtResource( 1 )
 launch_bar = NodePath("LaunchBar")
 harvester = NodePath("Harvester")
@@ -77,11 +78,8 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="Harvester" parent="." groups=["player"] instance=ExtResource( 5 )]
+[node name="Harvester" parent="." groups=["player_harvester"] instance=ExtResource( 5 )]
 position = Vector2( 23, 0 )
-
-[node name="ChaffPos" type="Position2D" parent="."]
-position = Vector2( -28, 36 )
 
 [node name="Chaff" type="Particles2D" parent="."]
 position = Vector2( -60, 0 )

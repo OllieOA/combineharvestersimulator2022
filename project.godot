@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "RigidBody2D",
+"class": "BaseEnemy",
+"language": "GDScript",
+"path": "res://objects/base_enemy.gd"
+}, {
 "base": "Sprite",
 "class": "BaseHarvester",
 "language": "GDScript",
@@ -34,36 +39,38 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://objects/crop/crop_tilemap.gd"
 }, {
-"base": "Node2D",
-"class": "HealthBar",
-"language": "GDScript",
-"path": "res://objects/health.gd"
-}, {
 "base": "Resource",
 "class": "PowerupProperties",
 "language": "GDScript",
 "path": "res://objects/powerups/powerup_properties.gd"
+}, {
+"base": "Camera2D",
+"class": "ZoomingCamera2D",
+"language": "GDScript",
+"path": "res://objects/player_camera.gd"
 } ]
 _global_script_class_icons={
+"BaseEnemy": "",
 "BaseHarvester": "",
 "BaseLevel": "",
 "BasePowerup": "",
 "BaseWheat": "",
 "CropTilemap": "",
-"HealthBar": "",
-"PowerupProperties": ""
+"PowerupProperties": "",
+"ZoomingCamera2D": ""
 }
 
 [application]
 
 config/name="Harvester"
-run/main_scene="res://scenes/base_level.tscn"
+run/main_scene="res://scenes/title_screen.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
 SignalBus="*res://globals/signal_bus.gd"
-GameProgress="*res://globals/game_progress.gd"
+SceneTransition="*res://globals/scene_transition.tscn"
+GameProgress="*res://globals/game_progress.tscn"
 
 [display]
 
@@ -103,6 +110,21 @@ left_click={
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
+zoom_in={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":4,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+zoom_out={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":5,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+reset={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":82,"unicode":0,"echo":false,"script":null)
+ ]
+}
 
 [layer_names]
 
@@ -123,4 +145,5 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
+batching/options/use_batching=false
 environment/default_environment="res://default_env.tres"

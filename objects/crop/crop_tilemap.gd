@@ -35,6 +35,4 @@ func _ready() -> void:
 	crop_rect = get_used_rect()
 	crop_tiles = get_used_cells()
 	
-	print(crop_rect)
-	
 
