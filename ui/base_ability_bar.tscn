@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://objects/powerups/powerup_icons.png" type="Texture" id=1]
+[ext_resource path="res://ui/base_ability_bar.gd" type="Script" id=2]
+
+[node name="BaseBar" type="HBoxContainer"]
+margin_right = 40.0
+margin_bottom = 14.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BaseSprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+centered = false
+hframes = 6
+
+[node name="BaseTimerBar" type="TextureProgress" parent="."]
+margin_right = 1.0
+margin_bottom = 14.0

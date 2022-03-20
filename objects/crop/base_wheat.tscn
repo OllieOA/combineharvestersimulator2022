@@ -1,0 +1,74 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://objects/crop/wheat_sheet.png" type="Texture" id=1]
+[ext_resource path="res://objects/crop/base_wheat.gd" type="Script" id=2]
+
+[sub_resource type="Shader" id=2]
+code = "shader_type canvas_item;
+
+uniform vec2 global_pos = vec2(1.0, 1.0);
+
+uniform float speed = 5.0;
+uniform float frequency_y = 1.0;
+uniform float frequency_x = 1.0;
+uniform float amplitude_y = 1.0;
+uniform float amplitude_x = 1.0;
+
+void vertex() {
+	VERTEX.y += sin((UV.x - TIME * speed) * (frequency_y) + global_pos.x) * amplitude_y * (1.0 - UV.y);
+	VERTEX.x += cos((UV.y - TIME * speed) * (frequency_x) + global_pos.y) * amplitude_x * (0.5 - UV.x);
+}
+
+"
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = SubResource( 2 )
+shader_param/global_pos = Vector2( 1, 1 )
+shader_param/speed = 1.5
+shader_param/frequency_y = 1.0
+shader_param/frequency_x = 1.6
+shader_param/amplitude_y = 1.0
+shader_param/amplitude_x = 1.5
+
+[sub_resource type="Animation" id=1]
+resource_name = "kill_wheat"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 2, 4 ), Vector2( -4, 8 ), Vector2( 8, 12 ), Vector2( 0, 16 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 0, 0 ) ]
+}
+
+[node name="BaseWheat" type="Node2D" groups=["wheat"]]
+script = ExtResource( 2 )
+wheat_sprite = NodePath("BaseWheatSprite")
+kill_animator = NodePath("BaseWheatSprite/AnimationPlayer")
+
+[node name="BaseWheatSprite" type="Sprite" parent="."]
+material = SubResource( 3 )
+scale = Vector2( 1.1, 1 )
+texture = ExtResource( 1 )
+centered = false
+hframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BaseWheatSprite"]
+anims/kill_wheat = SubResource( 1 )

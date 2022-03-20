@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/tractor.ogg-d764ae9bfacd47c2bf9bb08cdeee6450.oggstr"
+
+[deps]
+
+source_file="res://sound/tractor.ogg"
+dest_files=[ "res://.import/tractor.ogg-d764ae9bfacd47c2bf9bb08cdeee6450.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

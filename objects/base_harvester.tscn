@@ -1,0 +1,48 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://objects/player_harvester.png" type="Texture" id=1]
+[ext_resource path="res://objects/base_harvester.gd" type="Script" id=2]
+[ext_resource path="res://sound/tractor.ogg" type="AudioStream" id=3]
+
+[sub_resource type="Animation" id=1]
+resource_name = "harvest"
+length = 1.6
+loop = true
+step = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4, 0.8, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+
+[node name="Harvester" type="Sprite"]
+position = Vector2( 11, 0 )
+texture = ExtResource( 1 )
+hframes = 4
+script = ExtResource( 2 )
+l_pos = NodePath("LPos")
+r_pos = NodePath("RPos")
+harvest_animator = NodePath("AnimationPlayer")
+engine_noise = NodePath("Engine")
+
+[node name="LPos" type="Position2D" parent="."]
+position = Vector2( 4, -30 )
+
+[node name="RPos" type="Position2D" parent="."]
+position = Vector2( 4, 30 )
+
+[node name="DebugPoints" type="Node2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/harvest = SubResource( 1 )
+
+[node name="Engine" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+bus = "SFX"

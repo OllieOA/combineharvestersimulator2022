@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://objects/powerups/base_powerup.tscn" type="PackedScene" id=1]
+[ext_resource path="res://objects/powerups/powerup_properties.gd" type="Script" id=2]
+
+[sub_resource type="Resource" id=1]
+resource_local_to_scene = true
+script = ExtResource( 2 )
+
+[node name="StopPowerup" instance=ExtResource( 1 )]
+powerup_properties = SubResource( 1 )
+powerup_type = 2
+
+[node name="Icon" parent="RelativePosition/Border" index="0"]
+frame = 2

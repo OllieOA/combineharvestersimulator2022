@@ -1,0 +1,97 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://objects/player.gd" type="Script" id=1]
+[ext_resource path="res://objects/player.png" type="Texture" id=2]
+[ext_resource path="res://ui/launch_bar_fill.png" type="Texture" id=3]
+[ext_resource path="res://ui/launch_bar_base.png" type="Texture" id=4]
+[ext_resource path="res://objects/base_harvester.tscn" type="PackedScene" id=5]
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 22.0001, 35.4999 )
+
+[sub_resource type="Curve" id=3]
+max_value = 4.0
+_data = [ Vector2( 0, 4 ), 0.0, 0.0, 0, 0, Vector2( 0.771739, 4 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=4]
+curve = SubResource( 3 )
+
+[sub_resource type="ParticlesMaterial" id=2]
+emission_shape = 2
+emission_box_extents = Vector3( 10, 20, 1 )
+flag_disable_z = true
+direction = Vector3( -1, 0, 0 )
+spread = 10.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 20.0
+initial_velocity_random = 0.2
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = -60.0
+scale = 2.0
+scale_curve = SubResource( 4 )
+color = Color( 0.921569, 0.560784, 0.282353, 1 )
+
+[sub_resource type="ParticlesMaterial" id=5]
+flag_disable_z = true
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 40.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+tangential_accel = -60.0
+scale = 10.0
+color = Color( 0.380392, 0.380392, 0.380392, 1 )
+
+[node name="Player" type="RigidBody2D" groups=["player"]]
+collision_mask = 76
+mode = 2
+mass = 10.0
+continuous_cd = 2
+contacts_reported = 1
+contact_monitor = true
+linear_damp = 1.0
+script = ExtResource( 1 )
+launch_bar = NodePath("LaunchBar")
+harvester = NodePath("Harvester")
+chaff = NodePath("Chaff")
+
+[node name="BodySprite" type="Sprite" parent="."]
+position = Vector2( -31, 0 )
+texture = ExtResource( 2 )
+
+[node name="BodyCollision" type="CollisionShape2D" parent="."]
+position = Vector2( -26.5, -4.76837e-07 )
+rotation = 1.5708
+shape = SubResource( 6 )
+
+[node name="LaunchBar" type="TextureProgress" parent="."]
+margin_left = -197.0
+margin_top = -8.0
+margin_right = -133.0
+rect_min_size = Vector2( 64, 8 )
+rect_scale = Vector2( 2, 2 )
+texture_under = ExtResource( 4 )
+texture_progress = ExtResource( 3 )
+fill_mode = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Harvester" parent="." groups=["player"] instance=ExtResource( 5 )]
+position = Vector2( 23, 0 )
+
+[node name="ChaffPos" type="Position2D" parent="."]
+position = Vector2( -28, 36 )
+
+[node name="Chaff" type="Particles2D" parent="."]
+position = Vector2( -60, 0 )
+amount = 40
+lifetime = 1.5
+local_coords = false
+process_material = SubResource( 2 )
+
+[node name="Exhaust" type="Particles2D" parent="."]
+position = Vector2( -21, -24 )
+amount = 16
+local_coords = false
+process_material = SubResource( 5 )
